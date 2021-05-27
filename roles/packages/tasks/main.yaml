@@ -1,0 +1,33 @@
+- name: add repo signing keys
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: add repos
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  with_items:
+  - deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+
+- name: add MS repos
+  apt:
+    deb: https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
+
+- name: install apps via repos
+  apt:
+    update_cache: yes
+    name:
+    - net-tools
+    - docker-ce
+    - docker-ce-cli
+    - git
+    - filezilla
+    - vlc
+    - powershell
+
+- name: install apps via deb
+  apt:
+    deb: "{{ item }}"
+  with_items:
+    - https://github.com/jgraph/drawio-desktop/releases/download/v14.6.13/drawio-amd64-14.6.13.deb
