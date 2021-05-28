@@ -1,7 +1,10 @@
 - name: add repo signing keys
   apt_key:
-    url: https://download.docker.com/linux/ubuntu/gpg
+    url: "{{ item }}"
     state: present
+  with_items:
+    - https://swupdate.openvpn.net/repos/repo-public.gpg
+    - https://download.docker.com/linux/ubuntu/gpg
 
 - name: add repos
   apt_repository:
@@ -9,6 +12,7 @@
     state: present
   with_items:
   - deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+  - deb http://build.openvpn.net/debian/openvpn/stable focal main
 
 - name: add MS repos
   apt:
@@ -25,6 +29,12 @@
     - filezilla
     - vlc
     - powershell
+    - openvpn
+    - network-manager-openvpn
+    - network-manager-openvpn-gnome
+    - openconnect
+    - network-manager-openconnect-gnome
+    - network-manager-openconnect
 
 - name: install apps via deb
   apt:
