@@ -5,6 +5,9 @@
   with_items:
     - https://swupdate.openvpn.net/repos/repo-public.gpg
     - https://download.docker.com/linux/ubuntu/gpg
+    - https://dl.google.com/linux/linux_signing_key.pub
+    - https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    - https://apt.releases.hashicorp.com/gpg
 
 - name: add repos
   apt_repository:
@@ -13,6 +16,9 @@
   with_items:
   - deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
   - deb http://build.openvpn.net/debian/openvpn/stable focal main
+  - deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
+  - deb https://packages.cloud.google.com/apt cloud-sdk main
+  - deb [arch=amd64] https://apt.releases.hashicorp.com focal main
 
 - name: add MS repos
   apt:
@@ -35,6 +41,9 @@
     - openconnect
     - network-manager-openconnect-gnome
     - network-manager-openconnect
+    - google-chrome-stable
+    - google-cloud-sdk
+    - terraform
 
 - name: install apps via deb
   apt:
